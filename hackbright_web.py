@@ -26,8 +26,6 @@ def get_student():
 
     rows = hackbright.get_grades_by_github(github)
 
-
-
     html = render_template("student_info.html",
                                first=first,
                                last=last,
@@ -61,16 +59,34 @@ def student_add():
 
     return html
 
+
 @app.route("/projects/<project>")
-def describe_project():
+def describe_project(project):
     """Gives description of project."""
 
     title, description, max_grade = hackbright.get_project_by_title(project)
+
+    # starting work on Intertwining 
+    # get_grades_by_title(title)
 
     html = render_template("project.html", title=title, description=description, 
         max_grade=max_grade)
 
     return html
+
+# @app.route("/projects", methods=['GET'])
+# def describe_project():
+#     """Gives description of project. """
+
+#     project = request.args.get("project")
+
+#     title, description, max_grade = hackbright.get_project_by_title(project)
+
+#     html = render_template("project.html", title=title, description=description, 
+#             max_grade=max_grade)
+
+#     return html
+
 
 if __name__ == "__main__":
     hackbright.connect_to_db(app)
